@@ -2,6 +2,13 @@ extends layout.pug
 
 block content 
   .container.mt-5
+    if errors && errors.length > 0
+      .alert.alert-danger(role="alert")
+        ul.mb-0
+          each error in errors
+            li= error.msg  
+
+  .container.mt-5
     h2 Register
     form(action="/register" method="POST")
       .mb-3
@@ -17,6 +24,7 @@ block content
         input#confirm_password.form-control(type="password" name="confirm_password" required min="3" max="15")
 
       button(type="submit" class="btn btn-primary") Register
+      
       p.mt-3
         | Already a user? 
         a(href="/login") Login
