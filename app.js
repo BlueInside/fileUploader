@@ -27,7 +27,8 @@ app.use(session({
     store: new PrismaSessionStore(new PrismaClient(), { checkPeriod: 2 * 60 * 1000, dbRecordIdIsSessionId: true, dbRecordIdFunction: undefined })
 }))
 app.use(passport.session());
-app.use(express.urlencoded({ extended: true }));
+
+app.use(express.urlencoded({ extended: false }));
 
 app.get('/', (req, res) => {
     res.render('main');
