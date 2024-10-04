@@ -25,6 +25,22 @@ const verifyFunction = async (username, password, done) => {
     }
 }
 
+passport.serializeUser((user, done) => {
+    done(null, user.id);
+});
+
+passport.deserializeUser(async (id, done) => {
+    try {
+        const user = await prisma.users.findUnique({
+            where: { id: id }
+        })
+
+        done(null, user);
+    } catch (err) {
+        done(err);
+    }
+});
+
 passport.use(new LocalStrategy(verifyFunction))
 
 module.exports = passport
