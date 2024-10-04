@@ -6,13 +6,8 @@ const { PrismaSessionStore } = require('@quixo3/prisma-session-store');
 const { PrismaClient } = require('@prisma/client');
 const LocalStrategy = require('passport-local').Strategy;
 require('dotenv').config();
+
 const port = process.env.PORT
-
-// Require Routes
-const auth = require('./routes/auth')
-
-// Use Routes
-app.use('/', auth)
 
 // Set up views engine and path
 app.set('/views', __dirname);
@@ -28,7 +23,14 @@ app.use(session({
 }))
 app.use(passport.session());
 
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
+
+// Require Routes
+const auth = require('./routes/auth')
+
+// Use Routes
+app.use('/', auth)
+
 
 app.get('/', (req, res) => {
     res.render('main');
