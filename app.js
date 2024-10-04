@@ -8,7 +8,7 @@ const LocalStrategy = require('passport-local').Strategy;
 require('dotenv').config();
 const port = process.env.PORT
 
-app.set('views', __dirname);
+app.set('/views', __dirname);
 app.set('view engine', 'pug');
 
 app.use(session({
@@ -22,7 +22,7 @@ app.use(passport.session());
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
-    res.send('hello world!')
+    res.render('main');
 })
 
 app.listen(port, () => {
