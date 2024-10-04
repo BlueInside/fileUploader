@@ -5,7 +5,7 @@ const getLoginPage = asyncHandler(async (req, res, next) => {
 })
 
 const getRegisterPage = asyncHandler(async (req, res, next) => {
-    res.render('/login')
+    res.render('register')
 })
 
 module.exports = {
