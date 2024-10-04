@@ -13,15 +13,15 @@ block content
     form(action="/register" method="POST")
       .mb-3
         label(for="email" class="form-label") Email 
-        input#email.form-control(type="email" name="email" required placeholder="username@gmail.com")
+        input#email.form-control(type="email" name="username" required placeholder="username@gmail.com")
       
       .mb-3
         label(for="password" class="form-label") Password 
-        input#password.form-control(type="password" name="password" required min="3" max="15")
+        input#password.form-control(type="password" name="password" required min="6" max="50")
       
       .mb-3
         label(for="confirm_password" class="form-label") Confirm Password 
-        input#confirm_password.form-control(type="password" name="confirm_password" required min="3" max="15")
+        input#confirm_password.form-control(type="password" name="confirm_password" required min="6" max="50")
 
       button(type="submit" class="btn btn-primary") Register
       
