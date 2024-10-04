@@ -18,11 +18,7 @@ const userLogin = passport.authenticate('local', {
 
 
 const userRegister = asyncHandler(async (req, res, next) => {
-    const { email: username, password, confirm_password } = req.body
-    if (password !== confirm_password) {
-        // Handle error when passwords doesn't match
-        return res.render('register', { errors: [{ msg: `Passwords doesn't match` }] })
-    }
+    const { email: username, password } = req.body
 
     const existingUser = await prisma.users.findUnique({
         where: { username: username }
