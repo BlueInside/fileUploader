@@ -2,8 +2,8 @@ extends layout.pug
 
 block content 
   .container.mt-5
-    h2 Login
-    form(action="/login" method="POST")
+    h2 Register
+    form(action="/register" method="POST")
       .mb-3
         label(for="email" class="form-label") Email 
         input#email.form-control(type="email" name="email" required placeholder="username@gmail.com")
@@ -11,8 +11,12 @@ block content
       .mb-3
         label(for="password" class="form-label") Password 
         input#password.form-control(type="password" name="password" required min="3" max="15")
+      
+      .mb-3
+        label(for="confirm_password" class="form-label") Confirm Password 
+        input#confirm_password.form-control(type="password" name="confirm_password" required min="3" max="15")
 
-      button(type="submit" class="btn btn-primary") Login
+      button(type="submit" class="btn btn-primary") Register
       p.mt-3
-        | Not registered? 
-        a(href="/register") Create an account
+        | Already a user? 
+        a(href="/login") Login
