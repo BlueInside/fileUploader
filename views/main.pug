@@ -1,0 +1,34 @@
+
+extends layout.pug
+
+block content
+  .container
+    .row
+      .col-12.mt-4
+        h1 Welcome to FileShare!
+        p Share your files with others.
+
+    .row.mt-4
+      .col-md-6
+        h2 Upload a File
+        form(action="/upload" method="POST" enctype="multipart/form-data")
+          .mb-3
+            label(for="file", class="form-label") Select file to upload:
+            input(type="file" name="file" id="file" class="form-control")
+          .mb-3
+            label(for="description", class="form-label") File description (optional):
+            input(type="text" name="description" id="description" class="form-control")
+          button(type="submit" class="btn btn-primary") Upload File
+
+      .col-md-6
+        h2 Recently Uploaded Files
+        ul.list-group
+          li.list-group-item
+            a(href="#") Example File 1
+            p Uploaded by: User1 | Date: 2024-10-03
+          li.list-group-item
+            a(href="#") Example File 2
+            p Uploaded by: User2 | Date: 2024-10-02
+          li.list-group-item
+            a(href="#") Example File 3
+            p Uploaded by: User3 | Date: 2024-10-01
