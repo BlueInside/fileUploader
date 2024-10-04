@@ -8,9 +8,17 @@ const LocalStrategy = require('passport-local').Strategy;
 require('dotenv').config();
 const port = process.env.PORT
 
+// Require Routes
+const auth = require('./routes/auth')
+
+// Use Routes
+app.use('/', auth)
+
+// Set up views engine and path
 app.set('/views', __dirname);
 app.set('view engine', 'pug');
 
+// Middleware
 app.use(session({
     cookie: { maxAge: 7 * 24 * 60 * 60 * 100 },
     secret: process.env.SESSION_SECRET,
@@ -24,6 +32,7 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/', (req, res) => {
     res.render('main');
 })
+
 
 app.listen(port, () => {
     console.log(`App listening on port ${port}`);
