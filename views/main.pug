@@ -5,7 +5,10 @@ block content
   .container
     .row
       .col-12.mt-4
-        h1 Welcome to FileShare!
+        if locals.currentUser 
+          h1 welcome back 
+        else 
+          h1 Welcome to FileShare!
         p Share your files with others.
 
     .row.mt-4
