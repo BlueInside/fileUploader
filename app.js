@@ -5,6 +5,7 @@ const passport = require('passport');
 const { PrismaSessionStore } = require('@quixo3/prisma-session-store');
 const { PrismaClient } = require('@prisma/client');
 require('dotenv').config();
+require('./config/passport');
 
 const port = process.env.PORT
 
@@ -26,8 +27,12 @@ app.use(session({
 }))
 
 app.use(passport.session());
-
+app.use(passport.initialize());
 app.use(express.urlencoded({ extended: true }));
+app.use((req, res, next) => {
+    res.locals.currentUser = req.user;
+    next();
+});
 
 // Require Routes
 const auth = require('./routes/auth')
