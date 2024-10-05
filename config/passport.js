@@ -1,5 +1,5 @@
 const passport = require('passport');
-const LocalStrategy = require('passport-local');
+const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcryptjs');
 const prisma = require('../prisma');
 
@@ -25,6 +25,9 @@ const verifyFunction = async (username, password, done) => {
     }
 }
 
+passport.use(new LocalStrategy({}, verifyFunction))
+
+
 passport.serializeUser((user, done) => {
     done(null, user.id);
 });
@@ -40,8 +43,3 @@ passport.deserializeUser(async (id, done) => {
         done(err);
     }
 });
-
-passport.use(new LocalStrategy(verifyFunction))
-
-module.exports = passport
-
