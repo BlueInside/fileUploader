@@ -1,5 +1,5 @@
 const asyncHandler = require('express-async-handler');
-const passport = require('../config/passport');
+const passport = require('passport');
 const prisma = require('../prisma');
 const bcrypt = require('bcryptjs');
 
@@ -11,10 +11,25 @@ const getRegisterPage = asyncHandler(async (req, res, next) => {
     res.render('register')
 })
 
-const userLogin = passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/login'
-})
+const userLogin = (req, res, next) => {
+    passport.authenticate('local', (err, user, info) => {
+        if (err) {
+            return next(err);
+        }
+        if (!user) {
+            return res.render('login', { errors: [{ msg: info.message || 'No user found with those credentials' }] })
+        }
+        req.logIn(user, (err) => {
+            if (err) {
+                return next(err);
+            }
+            return res.redirect('/')
+        })
+
+    })(req, res, next);
+}
+
+
 
 
 const userRegister = asyncHandler(async (req, res, next) => {
