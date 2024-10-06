@@ -16,6 +16,10 @@ block content
         input#email.form-control(type="email" name="email" required placeholder="username@gmail.com")
       
       .mb-3
+        label(for="username" class="form-label") Username 
+        input#username.form-control(type="text" name="username" min="3" max="15" required placeholder="cooluser123")
+      
+      .mb-3
         label(for="password" class="form-label") Password 
         input#password.form-control(type="password" name="password" required min="6" max="50")
       
