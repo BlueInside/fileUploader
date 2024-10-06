@@ -1,18 +1,13 @@
 const express = require('express');
+const multer = require('multer');
+const filesController = require('../controllers/filesController');
+const upload = multer({ dest: 'uploads/' });
 const fileRouter = express.Router();
 
-fileRouter.get('/', (req, res, next) => {
-    res.send('/GET FILES');
-})
+fileRouter.get('/', filesController.getFiles)
 
-fileRouter.post('/', (req, res, next) => {
-    res.send('/POST FILE');
-})
+fileRouter.post('/', upload.single('file'), filesController.addFile)
 
-fileRouter.PUT('/', (req, res, next) => {
-    res.send(`/UPDATE ${req.params.id} FILE`);
-})
+fileRouter.put('/', filesController.updateFile)
 
-fileRouter.delete('/', (req, res, next) => {
-    res.send(`/delete ${req.params.id} FILE`);
-})
+fileRouter.delete('/', filesController.removeFile)
