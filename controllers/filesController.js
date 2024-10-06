@@ -1,7 +1,7 @@
 
 // List all user files
 const getFiles = (req, res, next) => {
-    res.send('GET ALL FILES')
+    res.send('GET ALL User FILES')
 }
 
 // Get information about specific file
