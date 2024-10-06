@@ -6,7 +6,7 @@ block content
     .row
       .col-12.mt-4
         if locals.currentUser 
-          h1 welcome back 
+          h1 welcome back #{currentUser.username}
         else 
           h1 Welcome to FileShare!
         p Share your files with others.
