@@ -4,6 +4,9 @@ const prisma = require('../prisma');
 const bcrypt = require('bcryptjs');
 
 const getLoginPage = asyncHandler(async (req, res, next) => {
+    if (req.isAuthenticated()) {
+        return res.redirect('/')
+    }
     res.render('login')
 })
 
