@@ -4,9 +4,7 @@ const getFiles = (req, res, next) => {
     res.send('GET ALL FILES')
 }
 
-const addFile = (req, res, next) => {
-    console.log('File info: ', req.file)
-    console.log('BODY INFO: ', req.body)
+const createFile = (req, res, next) => {
     res.send('POST FILE')
 }
 
@@ -20,7 +18,7 @@ const removeFile = (req, res, next) => {
 
 module.exports = {
     getFiles,
-    addFile,
+    createFile,
     updateFile,
     removeFile,
 }
