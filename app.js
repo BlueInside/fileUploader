@@ -37,6 +37,7 @@ app.use((req, res, next) => {
 // Require Routes
 const auth = require('./routes/auth')
 const file = require('./routes/files');
+const folder = require('./routes/folders')
 
 // Use Routes
 app.use('/', auth)
