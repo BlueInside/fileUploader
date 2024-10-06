@@ -7,7 +7,7 @@ const verifyFunction = async (username, password, done) => {
     try {
 
         const user = await prisma.users.findUnique({
-            where: { username: username }
+            where: { email: username }
         });
 
         if (!user) {
