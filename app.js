@@ -40,7 +40,7 @@ const file = require('./routes/files');
 
 // Use Routes
 app.use('/', auth)
-app.use('/file', file)
+app.use('/files', file)
 
 app.get('/', (req, res) => {
     res.render('main');
