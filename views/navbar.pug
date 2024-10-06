@@ -3,8 +3,6 @@ nav.navbar.navbar-expand.navbar-dark.bg-dark
         a.navbar-brand(href="/") FileShare
 
         ul.navbar-nav.ms-auto
-            li.nav-item
-                a.nav-link(href="/") Home
             if !locals.currentUser
                 li.nav-item
                     a.nav-link(href="/login") Login
@@ -12,6 +10,10 @@ nav.navbar.navbar-expand.navbar-dark.bg-dark
                     a.nav-link(href="/register") Register
             else 
                 li.nav-item     
-                    a.nav-link(href='/folders') My files
+                    a.nav-link(href='/files') Files 
+                li.nav-item     
+                    a.nav-link(href='/folders') Folders
+                li.nav-item
+                    include createFolderForm.pug
                 li.nav-item     
                     a.nav-link(href='/logout') Logout
