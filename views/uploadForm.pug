@@ -1,0 +1,8 @@
+form(action="/upload" method="POST" enctype="multipart/form-data")
+            .mb-3
+              label(for="file", class="form-label") Select file to upload:
+              input(type="file" name="file" id="file" class="form-control")
+            .mb-3
+              label(for="description", class="form-label") File description (optional):
+              input(type="text" name="description" id="description" class="form-control")
+            button(type="submit" class="btn btn-primary") Upload File
