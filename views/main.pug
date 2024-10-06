@@ -1,27 +1,33 @@
-
 extends layout.pug
 
 block content
   .container
     .row
       .col-12.mt-4
-        if locals.currentUser 
-          h1 welcome back #{currentUser.username}
+        if currentUser
+          h1 Welcome back #{currentUser.username}
         else 
           h1 Welcome to FileShare!
         p Share your files with others.
 
     .row.mt-4
       .col-md-6
-        h2 Upload a File
-        form(action="/upload" method="POST" enctype="multipart/form-data")
-          .mb-3
-            label(for="file", class="form-label") Select file to upload:
-            input(type="file" name="file" id="file" class="form-control")
-          .mb-3
-            label(for="description", class="form-label") File description (optional):
-            input(type="text" name="description" id="description" class="form-control")
-          button(type="submit" class="btn btn-primary") Upload File
+        if currentUser
+          h2 Upload a File
+          form(action="/upload" method="POST" enctype="multipart/form-data")
+            .mb-3
+              label(for="file", class="form-label") Select file to upload:
+              input(type="file" name="file" id="file" class="form-control")
+            .mb-3
+              label(for="description", class="form-label") File description (optional):
+              input(type="text" name="description" id="description" class="form-control")
+            button(type="submit" class="btn btn-primary") Upload File
+        else
+          h2 Start Sharing Your Files
+          p To start uploading files, please 
+          a(href="/register") create an account
+          |  or 
+          a(href="/login") log in
 
       .col-md-6
         h2 Recently Uploaded Files
