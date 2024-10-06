@@ -11,3 +11,5 @@ fileRouter.post('/', upload.single('file'), filesController.addFile)
 fileRouter.put('/', filesController.updateFile)
 
 fileRouter.delete('/', filesController.removeFile)
+
+module.exports = fileRouter
