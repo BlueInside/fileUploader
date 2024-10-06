@@ -16,13 +16,36 @@ datasource db {
 model Session {
   id        String   @id
   sid       String   @unique
-  data      String   
-  expiresAt   DateTime
+  data      String
+  expiresAt DateTime
 }
 
 model User {
-  id Int @id @default(autoincrement())
-  email String @unique  
+  id       Int      @id @default(autoincrement())
+  email    String   @unique
   username String
   password String
+  folders  Folder[]
+  File     File[]
+}
+
+model Folder {
+  id        Int      @id @default(autoincrement())
+  name      String   @default("folder")
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  files     File[]
+  createdAt DateTime @default(now())
+}
+
+model File {
+  id        Int      @id
+  fileName  String
+  size      Int
+  createdAt DateTime @default(now())
+  url       String
+  folder    Folder   @relation(fields: [folderId], references: [id], onDelete: Cascade)
+  folderId  Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    Int
 }
