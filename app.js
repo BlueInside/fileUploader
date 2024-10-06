@@ -40,6 +40,7 @@ const file = require('./routes/files');
 
 // Use Routes
 app.use('/', auth)
+app.use('/folders', folder)
 app.use('/files', file)
 
 app.get('/', (req, res) => {
