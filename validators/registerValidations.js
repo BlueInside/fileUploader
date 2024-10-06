@@ -9,7 +9,7 @@ const validateRegistration = (req, res, next) => {
 }
 
 const registerValidations = [
-    body('username')
+    body('email')
         .isEmail()
         .withMessage('Please enter a valid email address.')
         .normalizeEmail(),

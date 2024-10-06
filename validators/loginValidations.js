@@ -9,7 +9,7 @@ const validateLogin = (req, res, next) => {
 }
 
 const loginValidations = [
-    body('username')
+    body('email')
         .isEmail()
         .withMessage('Please enter a valid email address.')
         .normalizeEmail(),

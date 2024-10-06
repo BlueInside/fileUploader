@@ -25,7 +25,7 @@ const verifyFunction = async (username, password, done) => {
     }
 }
 
-passport.use(new LocalStrategy({}, verifyFunction))
+passport.use(new LocalStrategy({ usernameField: 'email', passwordField: 'password' }, verifyFunction))
 
 
 passport.serializeUser((user, done) => {

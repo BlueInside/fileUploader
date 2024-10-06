@@ -33,10 +33,10 @@ const userLogin = (req, res, next) => {
 
 
 const userRegister = asyncHandler(async (req, res, next) => {
-    const { email: username, password } = req.body
+    const { email, password } = req.body
 
     const existingUser = await prisma.users.findUnique({
-        where: { username: username }
+        where: { email: email }
     })
 
     if (existingUser) {
@@ -48,7 +48,7 @@ const userRegister = asyncHandler(async (req, res, next) => {
 
 
     const newUser = await prisma.users.create({
-        data: { username: username, password: hashedPassword }
+        data: { email: email, password: hashedPassword }
     })
 
     // Redirect after successful registration

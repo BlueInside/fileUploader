@@ -2,8 +2,9 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient()
 
 // async function main() {
-//     const users = await prisma.users.findFirst({ where: { username: 'karol@o2.pl' } })
-//     console.log(users)
+//     const users = await prisma.users.findMany({});
+
+//     console.log(users);
 // }
 
 // main()
