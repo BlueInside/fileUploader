@@ -18,6 +18,8 @@ block content
         h4 No folders found
         p You haven't created any folders yet.
         p To start uploading files, please create your first folder.
-
-      // Link to create new folder
-      a.btn.btn-primary(href="/folders/new") Create Folder
+    .mt-5
+      h3 Create New Folder
+      form(action="/folders" method="POST")
+        input(type="hidden" name="name" value="folder") 
+        button.btn.btn-primary(type="submit") Create Folder
