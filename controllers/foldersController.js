@@ -1,8 +1,21 @@
+const prisma = require('../prisma');
+const asyncHandler = require('express-async-handler');
 
 // Current user folders list
-const getFolders = (req, res, next) => {
-    res.send('GET ALL Folders')
-}
+const getFolders = asyncHandler(async (req, res, next) => {
+
+    if (!req.user || !req.user.id) {
+        return next(new Error('No user currently logged in!'));
+    }
+
+    const userFolders = await prisma.folder.findMany({
+        where: {
+            userId: req.user.id
+        }
+    })
+
+    res.render('folders', { folders: userFolders })
+})
 
 // Create new folder
 const createFolder = (req, res, next) => {
