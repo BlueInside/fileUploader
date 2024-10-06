@@ -1,24 +1,20 @@
 
-
+// List all user files
 const getFiles = (req, res, next) => {
     res.send('GET ALL FILES')
 }
 
-const createFile = (req, res, next) => {
-    res.send('POST FILE')
+// Get information about specific file
+const getFileInfo = (req, res, next) => {
+    res.send(`GET file ${req.params.id} info`)
 }
 
-const updateFile = (req, res, next) => {
-    res.send(`UPDATE ${req.params.id} FILE`)
-}
-
+// Remove file
 const removeFile = (req, res, next) => {
     res.send(`REMOVE ${req.params.id} FILE`)
 }
 
 module.exports = {
     getFiles,
-    createFile,
-    updateFile,
     removeFile,
 }
