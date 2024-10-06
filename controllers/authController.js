@@ -55,9 +55,17 @@ const userRegister = asyncHandler(async (req, res, next) => {
     res.redirect('/')
 })
 
+const userLogout = (req, res, next) => {
+    req.logout((err) => {
+        if (err) return next(err);
+        res.redirect('/');
+    });
+}
+
 module.exports = {
     getLoginPage,
     getRegisterPage,
     userLogin,
-    userRegister
+    userRegister,
+    userLogout
 }
