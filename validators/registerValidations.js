@@ -13,6 +13,14 @@ const registerValidations = [
         .isEmail()
         .withMessage('Please enter a valid email address.')
         .normalizeEmail(),
+    body('username')
+        .trim()
+        .notEmpty()
+        .withMessage('Username field cannot be empty.')
+        .isLength({ min: 3, max: 15 })
+        .withMessage('Username must be within 3-15 characters long.')
+        .escape(),
+
 
     body('password')
         .isLength({ min: 6, max: 50 }).withMessage('Password must be 6-50 characters long'),
