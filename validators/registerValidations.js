@@ -20,8 +20,6 @@ const registerValidations = [
         .isLength({ min: 3, max: 15 })
         .withMessage('Username must be within 3-15 characters long.')
         .escape(),
-
-
     body('password')
         .isLength({ min: 6, max: 50 }).withMessage('Password must be 6-50 characters long'),
     body('confirm_password')
