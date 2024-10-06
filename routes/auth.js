@@ -12,4 +12,5 @@ authRouter.post('/login', loginValidations, authController.userLogin)
 authRouter.get('/register', authController.getRegisterPage)
 authRouter.post('/register', registerValidations, validateRegistration, authController.userRegister)
 
+authRouter.get('/logout', authController.userLogout)
 module.exports = authRouter
