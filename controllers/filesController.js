@@ -1,7 +1,4 @@
-const multer = require('multer');
 
-
-const upload = multer({ dest: 'uploads/' });
 
 const getFiles = (req, res, next) => {
     res.send('GET ALL FILES')
