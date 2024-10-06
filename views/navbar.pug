@@ -5,7 +5,11 @@ nav.navbar.navbar-expand.navbar-dark.bg-dark
         ul.navbar-nav.ms-auto
             li.nav-item
                 a.nav-link(href="/") Home
-            li.nav-item
-                a.nav-link(href="/login") Login
-            li.nav-item
-                a.nav-link(href="/register") Register
+            if !locals.currentUser
+                li.nav-item
+                    a.nav-link(href="/login") Login
+                li.nav-item
+                    a.nav-link(href="/register") Register
+            else 
+                li.nav-item     
+                    a.nav-link(href='/logout') Logout
