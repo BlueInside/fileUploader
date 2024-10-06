@@ -36,10 +36,11 @@ app.use((req, res, next) => {
 
 // Require Routes
 const auth = require('./routes/auth')
+const file = require('./routes/files');
 
 // Use Routes
 app.use('/', auth)
-
+app.use('/file', file)
 
 app.get('/', (req, res) => {
     res.render('main');
