@@ -6,7 +6,7 @@ const prisma = require('../prisma');
 const verifyFunction = async (username, password, done) => {
     try {
 
-        const user = await prisma.users.findUnique({
+        const user = await prisma.user.findUnique({
             where: { email: username }
         });
 
@@ -34,7 +34,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async (id, done) => {
     try {
-        const user = await prisma.users.findUnique({
+        const user = await prisma.user.findUnique({
             where: { id: id }
         })
 

@@ -5,6 +5,8 @@ const getFiles = (req, res, next) => {
 }
 
 const addFile = (req, res, next) => {
+    console.log('File info: ', req.file)
+    console.log('BODY INFO: ', req.body)
     res.send('POST FILE')
 }
 

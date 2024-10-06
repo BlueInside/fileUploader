@@ -35,7 +35,7 @@ const userLogin = (req, res, next) => {
 const userRegister = asyncHandler(async (req, res, next) => {
     const { email, username, password } = req.body
 
-    const existingUser = await prisma.users.findUnique({
+    const existingUser = await prisma.user.findUnique({
         where: { email: email }
     })
 
@@ -47,7 +47,7 @@ const userRegister = asyncHandler(async (req, res, next) => {
     const hashedPassword = await bcrypt.hash(password, 8)
 
 
-    const newUser = await prisma.users.create({
+    const newUser = await prisma.user.create({
         data: { email: email, username: username, password: hashedPassword }
     })
 
