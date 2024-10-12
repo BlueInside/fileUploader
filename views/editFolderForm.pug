@@ -1,0 +1,19 @@
+extends layout.pug
+
+block content
+  .container.mt-5
+    h1 Edit Folder
+
+    // Display the current folder name
+    p Current folder name: #{folderData.name}
+
+    // Edit form
+    form(action=`/folders/${folderData.id}?_method=PUT` method="POST")
+      .mb-3
+        label(for="name" class="form-label") New Folder Name
+        input#name.form-control(type="text" name="name" value=folderData.name required)
+
+      button.btn.btn-primary(type="submit") Update Folder
+
+    // Cancel button to go back to folders list
+    a.btn.btn-secondary.mt-3(href="/folders") Cancel

@@ -25,6 +25,30 @@ const createFolder = asyncHandler(async (req, res, next) => {
     res.redirect('/folders')
 });
 
+// Get edit form
+
+const getEditForm = asyncHandler(async (req, res, next) => {
+    const folderId = parseInt(req.params.id, 10);
+
+    if (isNaN(folderId)) {
+        const error = new Error('Invalid folder Id')
+        error.status = 400;
+        return next(error)
+    }
+
+    const folderData = await prisma.folder.findUnique({
+        where: { id: folderId }
+    });
+
+    if (!folderData) {
+        const error = new Error('Folder not found')
+        error.status = 404;
+        return next(error)
+    }
+
+    res.render('editFolderForm', { folderData })
+})
+
 // View folder content
 const getFolderInfo = (req, res, next) => {
     res.send(`GET folder ${req.params.id} info.`)
@@ -64,4 +88,5 @@ module.exports = {
     updateFolder,
     removeFolder,
     uploadFile,
+    getEditForm,
 }
