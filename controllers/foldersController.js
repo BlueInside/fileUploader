@@ -4,10 +4,6 @@ const asyncHandler = require('express-async-handler');
 // Current user folders list
 const getFolders = asyncHandler(async (req, res, next) => {
 
-    if (!req.user || !req.user.id) {
-        return next(new Error('No user currently logged in!'));
-    }
-
     const userFolders = await prisma.folder.findMany({
         where: {
             userId: req.user.id
@@ -18,9 +14,16 @@ const getFolders = asyncHandler(async (req, res, next) => {
 })
 
 // Create new folder
-const createFolder = (req, res, next) => {
-    res.send('POST Folder')
-}
+const createFolder = asyncHandler(async (req, res, next) => {
+    const newFolder = await prisma.folder.create({
+        data: {
+            userId: req.user.id,
+            name: 'folder',
+        }
+    })
+
+    res.redirect('/folders')
+});
 
 // View folder content
 const getFolderInfo = (req, res, next) => {
@@ -34,7 +37,8 @@ const updateFolder = (req, res, next) => {
 
 // Delete folder
 const removeFolder = (req, res, next) => {
-    res.send(`REMOVE ${req.params.id} Folder`)
+    const folderId = req.body.folder_id
+    res.send(`REMOVE ${req.body.folder_id} Folder`)
 }
 
 // Upload file to specific folder
