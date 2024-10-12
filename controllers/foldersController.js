@@ -36,10 +36,21 @@ const updateFolder = (req, res, next) => {
 }
 
 // Delete folder
-const removeFolder = (req, res, next) => {
-    const folderId = req.body.folder_id
-    res.send(`REMOVE ${req.body.folder_id} Folder`)
-}
+const removeFolder = asyncHandler(async (req, res, next) => {
+    const folderId = parseInt(req.body.folder_id, 10);
+
+    if (isNaN(folderId)) {
+        const err = new Error('Invalid folder Id')
+        err.status = 400;
+        return next(err);
+    }
+
+    const deletedFolder = await prisma.folder.delete({
+        where: { id: folderId },
+    });
+
+    res.redirect('/folders');
+})
 
 // Upload file to specific folder
 const uploadFile = (req, res, next) => {
