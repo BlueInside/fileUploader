@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const session = require('express-session');
 const passport = require('passport');
+const methodOverride = require('method-override');
 const { PrismaSessionStore } = require('@quixo3/prisma-session-store');
 const { PrismaClient } = require('@prisma/client');
 require('dotenv').config();
@@ -33,6 +34,7 @@ app.use((req, res, next) => {
     res.locals.currentUser = req.user;
     next();
 });
+app.use(methodOverride('_method'));
 
 // Require Routes
 const auth = require('./routes/auth')
