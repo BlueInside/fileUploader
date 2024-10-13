@@ -55,9 +55,27 @@ const getFolderInfo = (req, res, next) => {
 }
 
 // Rename/update folder
-const updateFolder = (req, res, next) => {
-    res.send(`UPDATE ${req.params.id} Folder`)
-}
+const updateFolder = asyncHandler(
+    async (req, res, next) => {
+        const folderId = parseInt(req.body.folder_id)
+
+        if (isNaN(folderId)) {
+            const error = new Error('Invalid folder Id');
+            error.status = 400;
+            next(error);
+        }
+
+        await prisma.folder.update({
+            where: { id: folderId },
+            data: {
+                name: req.body.name
+            }
+        }
+        )
+        // ADD VALIDATORS TO UPDATE FORM NAME!!!
+        res.send(`UPDATE ${req.params.id} Folder`)
+    }
+)
 
 // Delete folder
 const removeFolder = asyncHandler(async (req, res, next) => {
