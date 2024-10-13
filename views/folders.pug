@@ -8,7 +8,7 @@ block content
       .list-group
         each folder in folders
           .list-group-item.d-flex.justify-content-between.align-items-center  
-            h3.mb-0 #{folder.name}  
+            h3.mb-0.w-25 #{folder.name}  
             .d-flex
               p.mb-0.mr-3 #{`${folder.createdAt.toDateString()}`} 
             .btn-group
