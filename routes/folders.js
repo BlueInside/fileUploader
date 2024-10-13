@@ -2,11 +2,11 @@ const express = require('express');
 const foldersController = require('../controllers/foldersController');
 const { ensureAuthenticated } = require('../middlewares/authMiddleware')
 const folderRouter = express.Router();
-
+const { validateUpdateForm, updateFolderValidations } = require('../validators/updateFormValidations')
 // List all users folders
 folderRouter.get('/', ensureAuthenticated, foldersController.getFolders)
 
-// Create fodler
+// Create folder
 folderRouter.post('/', ensureAuthenticated, foldersController.createFolder)
 
 // Get all files inside folder
@@ -18,7 +18,7 @@ folderRouter.get('/:id/edit', ensureAuthenticated, foldersController.getEditForm
 folderRouter.post('/:id', ensureAuthenticated, foldersController.uploadFile)
 
 // Rename folder
-folderRouter.put('/', ensureAuthenticated, foldersController.updateFolder)
+folderRouter.put('/', ensureAuthenticated, updateFolderValidations, validateUpdateForm, foldersController.updateFolder)
 
 // Delete folder
 folderRouter.delete('/', ensureAuthenticated, foldersController.removeFolder)
