@@ -50,9 +50,43 @@ const getEditForm = asyncHandler(async (req, res, next) => {
 })
 
 // View folder content
-const getFolderInfo = (req, res, next) => {
-    res.send(`GET folder ${req.params.id} info.`)
-}
+const getFolderInfo = asyncHandler(async (req, res, next) => {
+    const id = parseInt(req.params.id)
+
+    if (isNaN(id)) {
+        const error = new Error('Invalid folder identifier');
+        error.status = 400;
+        return next(error);
+    }
+
+    const folderData = await prisma.folder.findUnique({
+        where: { id: id },
+        select: {
+            name: true,
+            createdAt: true,
+            files: {
+                select: {
+                    fileName: true,
+                    id: true,
+                    size: true,
+                    createdAt: true
+                },
+
+            },
+
+        },
+    })
+
+    if (!folderData) {
+        const error = new Error('Failed to fetch folder details');
+        error.status = 404;
+        return next(error);
+    }
+
+    const filesData = folderData.files;
+
+    res.render('folderInfo', { folderData, filesData })
+})
 
 // Rename/update folder
 const updateFolder = asyncHandler(
