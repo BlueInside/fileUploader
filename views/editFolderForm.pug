@@ -4,6 +4,13 @@ block content
   .container.mt-5
     h1 Edit Folder
 
+  .container.mt-5
+    if errors && errors.length > 0
+      .alert.alert-danger(role="alert")
+        ul.mb-0
+          each error in errors
+            li= error.msg  
+
     // Display the current folder name
     p Current folder name: #{folderData.name}
 
@@ -11,7 +18,7 @@ block content
     form(action=`/folders?_method=PUT` method="POST")
       .mb-3
         input#id(type="hidden" name="folder_id" value=folderData.id)
-        label(for="name" class="form-label") New Folder Name
+        label(for="name" class="form-label" min='1' max='15' required) New Folder Name
         input#name.form-control(type="text" name="name" value=folderData.name required)
 
       button.btn.btn-primary(type="submit") Update Folder
