@@ -73,7 +73,7 @@ const updateFolder = asyncHandler(
         }
         )
         // ADD VALIDATORS TO UPDATE FORM NAME!!!
-        res.send(`UPDATE ${req.params.id} Folder`)
+        res.redirect('/folders')
     }
 )
 
