@@ -8,8 +8,9 @@ block content
     p Current folder name: #{folderData.name}
 
     // Edit form
-    form(action=`/folders/${folderData.id}?_method=PUT` method="POST")
+    form(action=`/folders?_method=PUT` method="POST")
       .mb-3
+        input#id(type="hidden" name="folder_id" value=folderData.id)
         label(for="name" class="form-label") New Folder Name
         input#name.form-control(type="text" name="name" value=folderData.name required)
 
