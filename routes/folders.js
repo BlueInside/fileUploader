@@ -14,6 +14,7 @@ folderRouter.get('/:id', ensureAuthenticated, foldersController.getFolderInfo)
 
 // Get edit folder form
 folderRouter.get('/:id/edit', ensureAuthenticated, foldersController.getEditForm)
+
 // Add file to specific folder
 folderRouter.post('/:id', ensureAuthenticated, foldersController.uploadFile)
 
