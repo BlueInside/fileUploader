@@ -30,10 +30,15 @@ const getFileInfo = asyncHandler(async (req, res, next) => {
 
 // Remove file
 const removeFile = asyncHandler(async (req, res, next) => {
+    const fileId = parseInt(req.params.id, 10);
 
-    res.send(`REMOVE ${req.params.id} FILE`)
+    await prisma.file.delete({
+        where: { id: fileId }
+    })
 
+    res.redirect(`/files`)
 })
+
 module.exports = {
     getFiles,
     removeFile,
