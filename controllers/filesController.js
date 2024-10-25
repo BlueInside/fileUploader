@@ -1,8 +1,20 @@
+const prisma = require('../prisma');
+const asyncHandler = require('express-async-handler');
 
 // List all user files
-const getFiles = (req, res, next) => {
-    res.send('GET ALL User FILES')
-}
+const getFiles = asyncHandler(async (req, res, next) => {
+
+    const userFiles = await prisma.file.findMany({
+        where: { userId: req.user.id },
+        select: {
+            fileName: true,
+            size: true,
+            createdAt: true,
+        }
+    })
+
+    res.render('listUserFiles', { userFiles })
+})
 
 // Get information about specific file
 const getFileInfo = (req, res, next) => {

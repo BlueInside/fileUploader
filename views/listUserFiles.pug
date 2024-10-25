@@ -1,0 +1,24 @@
+extends layout.pug
+
+block content
+  .container.mt-5
+    h1 Your Files
+
+    // Display the files if they exist
+    if userFiles.length > 0
+      .list-group.mt-4
+        each file in userFiles
+          .list-group-item.d-flex.justify-content-between.align-items-center
+            .file-info
+              h4.mb-0 #{file.fileName}
+              p.text-muted.mb-0 File Size: #{file.size} KB | Uploaded on: #{file.createdAt.toDateString()}
+              
+            // Optional actions (e.g., download or view details)
+            .btn-group
+              a.btn.btn-sm.btn-outline-primary(href=`/files/${file.id}`) Download
+              a.btn.btn-sm.btn-outline-secondary(href=`/files/${file.id}/details`) View Details
+
+    else
+      // No files message
+      .d-flex.justify-content-center.align-items-center.min-vh-50
+        h3.text-muted You have no files uploaded.
