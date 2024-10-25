@@ -19,7 +19,7 @@ async function isFileOwner(req, res, next) {
         }
 
         const file = await prisma.file.findUnique({
-            where: { id: req.params.id },
+            where: { id: fileId },
             select: {
                 userId: true,
             }
@@ -31,7 +31,7 @@ async function isFileOwner(req, res, next) {
             throw error;
         }
 
-        if (file.userId !== req.user.id) {  // Ensure the file's owner is the logged-in user
+        if (file.userId !== req.user.id) {
             const error = new Error('Not authorized to view this file');
             error.status = 403;
             throw error;
