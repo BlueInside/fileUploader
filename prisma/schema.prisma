@@ -39,7 +39,7 @@ model Folder {
 }
 
 model File {
-  id        Int      @id
+  id        Int      @id @default(autoincrement())
   fileName  String
   size      Int
   createdAt DateTime @default(now())
