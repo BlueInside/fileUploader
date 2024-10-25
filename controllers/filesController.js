@@ -7,6 +7,7 @@ const getFiles = asyncHandler(async (req, res, next) => {
     const userFiles = await prisma.file.findMany({
         where: { userId: req.user.id },
         select: {
+            id: true,
             fileName: true,
             size: true,
             createdAt: true,
@@ -29,4 +30,5 @@ const removeFile = (req, res, next) => {
 module.exports = {
     getFiles,
     removeFile,
+    getFileInfo
 }
