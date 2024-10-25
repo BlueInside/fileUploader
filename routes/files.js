@@ -10,6 +10,6 @@ fileRouter.get('/', ensureAuthenticated, filesController.getFiles)
 
 fileRouter.get('/:id/details', ensureAuthenticated, isFileOwner, filesController.getFileInfo)
 
-fileRouter.delete('/', ensureAuthenticated, isFileOwner, filesController.removeFile)
+fileRouter.delete('/:id', ensureAuthenticated, isFileOwner, filesController.removeFile)
 
 module.exports = fileRouter
