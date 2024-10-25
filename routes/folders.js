@@ -1,6 +1,6 @@
 const express = require('express');
 const foldersController = require('../controllers/foldersController');
-const { ensureAuthenticated } = require('../middlewares/authMiddleware')
+const { ensureAuthenticated, isFolderOwner } = require('../middlewares/authMiddleware')
 const folderRouter = express.Router();
 const { validateUpdateForm, updateFolderValidations } = require('../validators/updateFormValidations')
 // List all users folders
@@ -16,12 +16,12 @@ folderRouter.get('/:id', ensureAuthenticated, foldersController.getFolderInfo)
 folderRouter.get('/:id/edit', ensureAuthenticated, foldersController.getEditForm)
 
 // Add file to specific folder
-folderRouter.post('/:id', ensureAuthenticated, foldersController.uploadFile)
+folderRouter.post('/:id', ensureAuthenticated, isFolderOwner, foldersController.uploadFile)
 
 // Rename folder
-folderRouter.put('/', ensureAuthenticated, updateFolderValidations, validateUpdateForm, foldersController.updateFolder)
+folderRouter.put('/', ensureAuthenticated, isFolderOwner, updateFolderValidations, validateUpdateForm, foldersController.updateFolder)
 
 // Delete folder
-folderRouter.delete('/', ensureAuthenticated, foldersController.removeFolder)
+folderRouter.delete('/', ensureAuthenticated, isFolderOwner, foldersController.removeFolder)
 
 module.exports = folderRouter;
