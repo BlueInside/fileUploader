@@ -1,0 +1,23 @@
+extends layout.pug
+
+block content
+  .container.mt-5
+    h1 File Details
+
+    if file
+      // File Name
+      h3.mt-4 #{file.fileName}
+
+      // File Metadata
+      p.text-muted File Size: #{file.size} KB
+      p.text-muted Uploaded on: #{file.createdAt.toDateString()}
+
+      // Action Buttons (optional)
+      .mt-4
+        a.btn.btn-primary(href=`/files/${file.id}/download`) Download
+        a.btn.btn-danger.ml-3(href=`/files/${file.id}/delete` onclick="return confirm('Are you sure you want to delete this file?')") Delete
+
+    else
+      .alert.alert-warning.mt-4
+        h4 File not found
+        p The file you are looking for does not exist or you do not have permission to view it.
