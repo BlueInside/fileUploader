@@ -18,9 +18,15 @@ const getFiles = asyncHandler(async (req, res, next) => {
 })
 
 // Get information about specific file
-const getFileInfo = (req, res, next) => {
-    res.send(`GET file ${req.params.id} info`)
-}
+const getFileInfo = asyncHandler(async (req, res, next) => {
+    const fileId = parseInt(req.params.id, 10);
+
+    const file = await prisma.file.findUnique({
+        where: { id: fileId }
+    })
+
+    res.render('fileDetails', { file })
+})
 
 // Remove file
 const removeFile = (req, res, next) => {
