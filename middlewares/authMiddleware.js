@@ -32,7 +32,7 @@ async function isFileOwner(req, res, next) {
         }
 
         if (file.userId !== req.user.id) {
-            const error = new Error('Not authorized to view this file');
+            const error = new Error('Not authorized to do this action');
             error.status = 403;
             throw error;
         }

@@ -29,10 +29,11 @@ const getFileInfo = asyncHandler(async (req, res, next) => {
 })
 
 // Remove file
-const removeFile = (req, res, next) => {
-    res.send(`REMOVE ${req.params.id} FILE`)
-}
+const removeFile = asyncHandler(async (req, res, next) => {
 
+    res.send(`REMOVE ${req.params.id} FILE`)
+
+})
 module.exports = {
     getFiles,
     removeFile,
