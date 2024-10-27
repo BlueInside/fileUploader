@@ -5,6 +5,8 @@ const passport = require('passport');
 const methodOverride = require('method-override');
 const { PrismaSessionStore } = require('@quixo3/prisma-session-store');
 const { PrismaClient } = require('@prisma/client');
+const prisma = require('./prisma');
+const asyncHandler = require('express-async-handler');
 require('dotenv').config();
 require('./config/passport');
 
@@ -46,9 +48,56 @@ app.use('/', auth)
 app.use('/folders', folder)
 app.use('/files', file)
 
-app.get('/', (req, res) => {
-    res.render('main');
-})
+app.get('/', asyncHandler(async (req, res) => {
+
+    const recentFiles = await prisma.file.findMany({
+        orderBy: {
+            createdAt: 'desc',
+        },
+        take: 3,
+        select: {
+            id: true,
+            fileName: true,
+            createdAt: true,
+            user: {
+                select: {
+                    username: true
+                }
+            },
+        }
+    });
+
+    if (!recentFiles) {
+        throw new Error(`Couldn't fetch files from database.`)
+    }
+
+    let userFolders = [];
+
+    if (req.user) {
+        userFolders = await prisma.folder.findMany(
+            {
+                where: { userId: req.user?.id },
+                select: {
+                    name: true,
+                    id: true
+                }
+            }
+        )
+    }
+
+    if (userFolders.length === 0) {
+        const newFolder = await prisma.folder.create({
+            data: {
+                userId: req.user.id,
+                name: 'Default Folder',
+            }
+        });
+
+        userFolders.push(newFolder);
+    }
+
+    res.render('main', { recentFiles, userFolders });
+}))
 
 
 app.listen(port, () => {
