@@ -2,14 +2,14 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient()
 
 async function main() {
-    const users = await prisma.user.findFirst({
-        include: {
-            files: true,
-            folders: true,
-        }
-    });
+    // const users = await prisma.user.findFirst({
+    //     include: {
+    //         files: true,
+    //         folders: true,
+    //     }
+    // });
 
-    console.log(users);
+    // console.log(users);
 
     // const file = await prisma.file.create({
     //     data: {
