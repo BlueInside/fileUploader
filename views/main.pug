@@ -5,7 +5,7 @@ block content
     .row
       .col-12.mt-4
         if currentUser
-          h1 Welcome back #{currentUser.username}
+          h1 Welcome back, #{currentUser.username}
         else 
           h1 Welcome to FileShare!
         p Share your files with others.
@@ -14,7 +14,32 @@ block content
       .col-md-6
         if currentUser
           h2 Upload a File
-          include uploadForm.pug
+
+          // Upload form
+          form(action="/upload" method="POST" enctype="multipart/form-data")
+            .mb-3
+              label(for="fileName" class="form-label") File Name
+              input#fileName.form-control(type="text" name="fileName" required placeholder="Enter file name")
+              
+            .mb-3
+              label(for="description" class="form-label") Description (optional)
+              input#description.form-control(type="text" name="description" placeholder="Enter file description")
+
+            .mb-3
+              label(for="file" class="form-label") Choose File
+              input#file.form-control(type="file" name="file" required)
+
+            // Folder Selection
+            if userFolders.length > 0
+              .mb-3
+                label(for="folderId" class="form-label") Select Folder
+                select#folderId.form-control(name="folderId" required)
+                  each folder in userFolders
+                    option(value=folder.id) #{folder.name}
+            else
+              p.text-muted.mb-3 Please create a folder first to upload files.
+
+            button.btn.btn-primary(type="submit") Upload File
         else
           h2 Start Sharing Your Files
           p To start uploading files, please 
@@ -24,13 +49,11 @@ block content
 
       .col-md-6
         h2 Recently Uploaded Files
-        ul.list-group
-          li.list-group-item
-            a(href="#") Example File 1
-            p Uploaded by: User1 | Date: 2024-10-03
-          li.list-group-item
-            a(href="#") Example File 2
-            p Uploaded by: User2 | Date: 2024-10-02
-          li.list-group-item
-            a(href="#") Example File 3
-            p Uploaded by: User3 | Date: 2024-10-01
+        if recentFiles.length > 0
+          ul.list-group
+            each file in recentFiles
+              li.list-group-item
+                a(href=`/files/${file.id}`) #{file.fileName}
+                p.text-muted Uploaded by: #{file.user.username} | Date: #{file.createdAt.toDateString()}
+        else
+          p.text-muted No files uploaded yet. Be the first to share!
