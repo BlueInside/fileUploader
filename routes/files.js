@@ -8,7 +8,7 @@ const { ensureAuthenticated, isFileOwner } = require('../middlewares/authMiddlew
 
 fileRouter.get('/', ensureAuthenticated, filesController.getFiles)
 
-fileRouter.get('/:id/details', ensureAuthenticated, isFileOwner, filesController.getFileInfo)
+fileRouter.get('/:id/details', ensureAuthenticated, filesController.getFileInfo)
 
 fileRouter.delete('/:id', ensureAuthenticated, isFileOwner, filesController.removeFile)
 
