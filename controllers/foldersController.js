@@ -18,7 +18,7 @@ const createFolder = asyncHandler(async (req, res, next) => {
     const newFolder = await prisma.folder.create({
         data: {
             userId: req.user.id,
-            name: 'folder',
+            name: 'New Folder',
         }
     })
 
