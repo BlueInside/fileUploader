@@ -1,7 +1,6 @@
 const express = require('express');
-const multer = require('multer');
 const filesController = require('../controllers/filesController');
-const upload = multer({ dest: 'uploads/' });
+const { upload } = require('../config/multer')
 const fileRouter = express.Router();
 const { ensureAuthenticated, isFileOwner, isFolderOwner } = require('../middlewares/authMiddleware');
 const { fileUploadValidations, validateFileUpload } = require('../validators/fileUploadValidations')
