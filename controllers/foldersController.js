@@ -1,5 +1,6 @@
 const prisma = require('../prisma');
 const asyncHandler = require('express-async-handler');
+const { deleteFolderFromHost } = require('../supabaseClient');
 
 // Current user folders list
 const getFolders = asyncHandler(async (req, res, next) => {
@@ -120,6 +121,8 @@ const removeFolder = asyncHandler(async (req, res, next) => {
         err.status = 400;
         return next(err);
     }
+
+    await deleteFolderFromHost(folderId)
 
     const deletedFolder = await prisma.folder.delete({
         where: { id: folderId },
