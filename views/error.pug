@@ -1,0 +1,21 @@
+extends layout.pug
+
+block content
+  .container.mt-5
+    .row.justify-content-center
+      .col-md-8.text-center
+        h1.text-danger.display-4 Error #{status}
+        p.lead.mt-3= message
+
+        if stack
+          h4.text-secondary.mt-4 Stack Trace (for debugging)
+          pre.text-left.bg-light.p-3.rounded= stack
+        else
+          p.text-muted.mt-4
+            | Please contact 
+            a(href="https://github.com/blueinside" target="_blank") me
+            |  if you keep encountering this issue.
+          
+    .row.justify-content-center.mt-5
+      .col-md-4.text-center
+        a.btn.btn-primary.btn-lg(href="/") Go to Homepage
