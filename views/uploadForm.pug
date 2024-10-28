@@ -4,7 +4,7 @@ form(action=`/files` method="POST" enctype="multipart/form-data")
               input#fileName.form-control(type="text" name="fileName" required placeholder="Enter file name")
               
             .mb-3
-              label(for="file" class="form-label") Choose File
+              label(for="file" class="form-label") Choose File (max 2MB)
               input#file.form-control(type="file" name="file" required)
 
             // Folder Selection
