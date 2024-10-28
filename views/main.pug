@@ -30,7 +30,7 @@ block content
           ul.list-group
             each file in recentFiles
               li.list-group-item
-                a(href=`/files/${file.id}`) #{file.fileName}
+                a(href=`/files/${file.id}/details`) #{file.fileName}
                 p.text-muted Uploaded by: #{file.user.username} | Date: #{file.createdAt.toDateString()}
         else
           p.text-muted No files uploaded yet. Be the first to share!
