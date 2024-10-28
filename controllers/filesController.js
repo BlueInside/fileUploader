@@ -1,5 +1,7 @@
 const prisma = require('../prisma');
 const asyncHandler = require('express-async-handler');
+const path = require('path');
+const { hostFile, hostUrl } = require('../supabaseClient');
 
 // List all user files
 const getFiles = asyncHandler(async (req, res, next) => {
@@ -41,24 +43,36 @@ const removeFile = asyncHandler(async (req, res, next) => {
 
 const uploadFile = asyncHandler(async (req, res, next) => {
     const folderId = parseInt(req.body.folder_id, 10);
+    const file = req.file
 
-    if (!req.file) {
-        throw new Error('No files found to be uploaded.');
+    if (!file) {
+        const error = new Error("No file uploaded");
+        error.status = 400;
+        return next(error);
     }
 
+    const filePath = `${folderId}/${req.body.fileName}`
+    const fileExtension = path.extname(file.originalname);
+    const finalFileName = `${req.body.fileName}${fileExtension}`;
+
+    const uploadedFile = await hostFile(file, filePath)
+    const url = await hostUrl(uploadedFile.path)
+
+    const publicUrl = `${url}?download`
     const uploadFile = await prisma.file.create({
         data: {
-            fileName: req.body.fileName,
-            size: req.file.size,
-            url: 'some url',
+            fileName: finalFileName,
+            size: file.size,
+            url: publicUrl,
             folderId,
+            path: uploadedFile.path,
             userId: req.user.id,
         }
-
     });
 
     res.redirect(`/files/${uploadFile.id}/details`);
 })
+
 module.exports = {
     getFiles,
     removeFile,
