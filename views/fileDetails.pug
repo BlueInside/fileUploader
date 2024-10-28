@@ -15,7 +15,7 @@ block content
       // Action Buttons (optional)
       .mt-4.d-flex
         // Download Button
-        a.btn.btn-primary.btn-sm.mr-2(href=`/files/${file.id}/download`) Download
+        a.btn.btn-primary.btn-sm.mr-2(href=`${file.url}`) Download
 
         // Delete Form Button
         form(action=`/files/${file.id}?_method=DELETE` method="POST" onsubmit="return confirm('Are you sure you want to delete this file?')")  
