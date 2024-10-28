@@ -4,10 +4,6 @@ form(action="/upload" method="POST" enctype="multipart/form-data")
               input#fileName.form-control(type="text" name="fileName" required placeholder="Enter file name")
               
             .mb-3
-              label(for="description" class="form-label") Description (optional)
-              input#description.form-control(type="text" name="description" placeholder="Enter file description")
-
-            .mb-3
               label(for="file" class="form-label") Choose File
               input#file.form-control(type="file" name="file" required)
 
