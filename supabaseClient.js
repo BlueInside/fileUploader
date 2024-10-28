@@ -36,4 +36,16 @@ const hostUrl = async (path) => {
     return data.publicUrl;
 }
 
-module.exports = { hostFile, hostUrl }
+const removeFileFromHost = async (filePath) => {
+    const { data, error } = await supabase
+        .storage
+        .from('files')
+        .remove([filePath])
+
+    if (error) {
+        return { data: null, error: new Error('Failed to remove file from hosting site.') };
+    } else {
+        return { data, error: null }
+    }
+}
+module.exports = { hostFile, hostUrl, removeFileFromHost }
