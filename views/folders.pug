@@ -16,7 +16,7 @@ block content
               form(action=`/folders/${folder.id}/edit` method="GET" class="mr-2")
                 button.btn.btn-sm.btn-outline-warning(type="submit") Edit
 
-              form(action=`/folders?_method=DELETE` method="POST" onsubmit="return confirm('Are you sure you want to delete this folder?')")  
+              form(action=`/folders?_method=DELETE` method="POST" onsubmit="return confirm('Are you sure you want to delete this folder? This action will delete all its content and it is irreversible!')")  
                 input(type="hidden" name='folder_id' value=`${folder.id}`)
                 button.btn.btn-sm.btn-outline-danger(type="submit") Delete
     else
