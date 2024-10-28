@@ -11,7 +11,7 @@ const getFolders = asyncHandler(async (req, res, next) => {
     })
 
     res.render('folders', { folders: userFolders })
-})
+});
 
 // Create new folder
 const createFolder = asyncHandler(async (req, res, next) => {
