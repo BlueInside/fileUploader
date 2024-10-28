@@ -43,11 +43,6 @@ const auth = require('./routes/auth')
 const file = require('./routes/files');
 const folder = require('./routes/folders')
 
-// Use Routes
-app.use('/', auth)
-app.use('/folders', folder)
-app.use('/files', file)
-
 app.get('/', asyncHandler(async (req, res) => {
     const errors = req.session.errors || [];
     delete req.session.errors;
@@ -100,6 +95,35 @@ app.get('/', asyncHandler(async (req, res) => {
 
     res.render('main', { recentFiles, userFolders, errors });
 }))
+
+
+// Use Routes
+app.use('/', auth)
+app.use('/folders', folder)
+app.use('/files', file)
+
+// Catch-all route for handling 404 errors
+app.use((req, res, next) => {
+    const error = new Error('Page Not Found');
+    error.status = 404;
+    next(error);
+});
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+
+    const status = err.status || 500;
+    const message = status === 500
+        ? "Something went wrong. Please try again later."
+        : err.message;
+
+    res.status(status).render('error', {
+        status,
+        message,
+        stack: process.env.NODE_ENV === 'development' ? err.stack : null
+    });
+});
 
 
 app.listen(port, () => {
