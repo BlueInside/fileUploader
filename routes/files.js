@@ -3,13 +3,12 @@ const multer = require('multer');
 const filesController = require('../controllers/filesController');
 const upload = multer({ dest: 'uploads/' });
 const fileRouter = express.Router();
-
 const { ensureAuthenticated, isFileOwner, isFolderOwner } = require('../middlewares/authMiddleware');
-
+const { fileUploadValidations, validateFileUpload } = require('../validators/fileUploadValidations')
 fileRouter.get('/', ensureAuthenticated, filesController.getFiles)
 
 // Add file to specific folder
-fileRouter.post('/', ensureAuthenticated, upload.single('file'), isFolderOwner, filesController.uploadFile)
+fileRouter.post('/', ensureAuthenticated, upload.single('file'), fileUploadValidations, validateFileUpload, isFolderOwner, filesController.uploadFile)
 
 fileRouter.get('/:id/details', ensureAuthenticated, filesController.getFileInfo)
 
