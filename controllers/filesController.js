@@ -39,6 +39,11 @@ const removeFile = asyncHandler(async (req, res, next) => {
     res.redirect(`/files`)
 })
 
+const uploadFile = asyncHandler(async (req, res, next) => {
+    const folderId = req.body.folder_id;
+
+    res.send(`FILE UPLOADED TO FOLDER ${folderId}`)
+})
 module.exports = {
     getFiles,
     removeFile,
