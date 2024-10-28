@@ -40,12 +40,28 @@ const removeFile = asyncHandler(async (req, res, next) => {
 })
 
 const uploadFile = asyncHandler(async (req, res, next) => {
-    const folderId = req.body.folder_id;
+    const folderId = parseInt(req.body.folder_id, 10);
 
-    res.send(`FILE UPLOADED TO FOLDER ${folderId}`)
+    if (!req.file) {
+        throw new Error('No files found to be uploaded.');
+    }
+
+    const uploadFile = await prisma.file.create({
+        data: {
+            fileName: req.body.fileName,
+            size: req.file.size,
+            url: 'some url',
+            folderId,
+            userId: req.user.id,
+        }
+
+    });
+
+    res.redirect(`/files/${uploadFile.id}/details`);
 })
 module.exports = {
     getFiles,
     removeFile,
-    getFileInfo
+    getFileInfo,
+    uploadFile,
 }
