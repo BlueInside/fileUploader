@@ -14,6 +14,11 @@ block content
       .col-md-6
         if currentUser
           h2 Upload a File
+          if errors && errors.length > 0
+            .alert.alert-danger
+              ul
+                each error in errors
+                  li= error.msg
 
           // Upload form
           include uploadForm
