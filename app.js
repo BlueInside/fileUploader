@@ -49,6 +49,8 @@ app.use('/folders', folder)
 app.use('/files', file)
 
 app.get('/', asyncHandler(async (req, res) => {
+    const errors = req.session.errors || [];
+    delete req.session.errors;
 
     const recentFiles = await prisma.file.findMany({
         orderBy: {
@@ -96,7 +98,7 @@ app.get('/', asyncHandler(async (req, res) => {
         userFolders.push(newFolder);
     }
 
-    res.render('main', { recentFiles, userFolders });
+    res.render('main', { recentFiles, userFolders, errors });
 }))
 
 
