@@ -44,7 +44,9 @@ const userRegister = asyncHandler(async (req, res, next) => {
 
     if (existingUser) {
         // Handle error if user already exists
-        return res.status(400).send("User already exists");
+        const error = new Error('User with this email already exist!')
+        error.status = 409
+        return next(error)
     }
 
     const hashedPassword = await bcrypt.hash(password, 8)
