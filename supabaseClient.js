@@ -48,4 +48,42 @@ const removeFileFromHost = async (filePath) => {
         return { data, error: null }
     }
 }
-module.exports = { hostFile, hostUrl, removeFileFromHost }
+
+const deleteFolderFromHost = async (folderPath) => {
+
+    try {
+        const { data: files, error: listError } = await supabase
+            .storage
+            .from('files')
+            .list(folderPath, {
+                limit: 100,
+                offset: 0,
+            })
+
+        if (listError) {
+            throw new Error(`Failed to list files in folder: ${listError.message}`);
+        }
+
+        if (files.length === 0) {
+            console.log("Folder is empty, no files to delete.");
+            return;
+        }
+
+        const filePaths = files.map(file => `${folderPath}/${file.name}`);
+
+        const { data, error: deleteError } = await supabase
+            .storage
+            .from('files')
+            .remove(filePaths)
+
+        if (deleteError) {
+            throw new Error(`Failed to delete files in folder: ${deleteError.message}`);
+        }
+
+        console.log("Folder and all its contents deleted successfully.");
+    } catch (error) {
+        console.error("Error deleting folder and contents:", error.message);
+    }
+}
+// deleteFolderFromHost();
+module.exports = { hostFile, hostUrl, removeFileFromHost, deleteFolderFromHost }
