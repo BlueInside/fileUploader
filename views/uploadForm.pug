@@ -1,4 +1,4 @@
-form(action="/upload" method="POST" enctype="multipart/form-data")
+form(action=`/files` method="POST" enctype="multipart/form-data")
             .mb-3
               label(for="fileName" class="form-label") File Name
               input#fileName.form-control(type="text" name="fileName" required placeholder="Enter file name")
@@ -10,8 +10,8 @@ form(action="/upload" method="POST" enctype="multipart/form-data")
             // Folder Selection
             if userFolders.length > 0
               .mb-3
-                label(for="folderId" class="form-label") Select Folder
-                select#folderId.form-control(name="folderId" required)
+                label(for="folder_id" class="form-label") Select Folder
+                select#folderId.form-control(name="folder_id" required)
                   each folder in userFolders
                     option(value=folder.id) #{folder.name}
             else
