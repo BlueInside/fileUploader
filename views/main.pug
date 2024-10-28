@@ -16,30 +16,7 @@ block content
           h2 Upload a File
 
           // Upload form
-          form(action="/upload" method="POST" enctype="multipart/form-data")
-            .mb-3
-              label(for="fileName" class="form-label") File Name
-              input#fileName.form-control(type="text" name="fileName" required placeholder="Enter file name")
-              
-            .mb-3
-              label(for="description" class="form-label") Description (optional)
-              input#description.form-control(type="text" name="description" placeholder="Enter file description")
-
-            .mb-3
-              label(for="file" class="form-label") Choose File
-              input#file.form-control(type="file" name="file" required)
-
-            // Folder Selection
-            if userFolders.length > 0
-              .mb-3
-                label(for="folderId" class="form-label") Select Folder
-                select#folderId.form-control(name="folderId" required)
-                  each folder in userFolders
-                    option(value=folder.id) #{folder.name}
-            else
-              p.text-muted.mb-3 Please create a folder first to upload files.
-
-            button.btn.btn-primary(type="submit") Upload File
+          include uploadForm
         else
           h2 Start Sharing Your Files
           p To start uploading files, please 
