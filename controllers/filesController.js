@@ -1,7 +1,7 @@
 const prisma = require('../prisma');
 const asyncHandler = require('express-async-handler');
 const path = require('path');
-const { hostFile, hostUrl } = require('../supabaseClient');
+const { hostFile, hostUrl, removeFileFromHost } = require('../supabaseClient');
 
 // List all user files
 const getFiles = asyncHandler(async (req, res, next) => {
@@ -33,6 +33,23 @@ const getFileInfo = asyncHandler(async (req, res, next) => {
 // Remove file
 const removeFile = asyncHandler(async (req, res, next) => {
     const fileId = parseInt(req.params.id, 10);
+
+    const fileToDelete = await prisma.file.findUnique({
+        where: { id: fileId }
+    });
+
+    if (!fileToDelete) {
+        const error = new Error('File not found');
+        error.status = 404;
+        return next(error);
+    }
+
+    const { data, error: removeError } = await removeFileFromHost(fileToDelete.path);
+
+    if (removeError) {
+        console.error("Error removing file from storage:", removeError.message);
+        return next(removeError);
+    }
 
     await prisma.file.delete({
         where: { id: fileId }
@@ -70,7 +87,7 @@ const uploadFile = asyncHandler(async (req, res, next) => {
         }
     });
 
-    res.redirect(`/files/${uploadFile.id}/details`);
+    return res.redirect(`/files/${uploadFile.id}/details`);
 })
 
 module.exports = {
