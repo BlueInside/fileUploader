@@ -87,7 +87,7 @@ app.get('/', asyncHandler(async (req, res) => {
         )
     }
 
-    if (userFolders.length === 0) {
+    if (userFolders.length === 0 && req.user) {
         const newFolder = await prisma.folder.create({
             data: {
                 userId: req.user.id,
