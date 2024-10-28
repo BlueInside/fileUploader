@@ -80,6 +80,12 @@ The **FileUploader** app is a multi-page web application designed to provide use
 
 ## Usage
 
+- **Register**: Create a new user account.
+- **Login**: Access your personal dashboard.
+- **Upload Files**: Use the upload form to add files to specific folders.
+- **Manage Folders**: Create, view, and delete folders to organize files.
+- **Download Files**: Generate public URLs for sharing and downloading files.
+
 ## API Endpoints
 
 ### Authentication Routes
